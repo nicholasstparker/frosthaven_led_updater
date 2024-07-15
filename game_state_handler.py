@@ -26,7 +26,7 @@ class GameStateHandler:
 
         match game_state.round_state:
             case 1:
-                self.handle_round_ready(game_state.character_states)
+                self.handle_round_ready(game_state)
             case 0:
                 self.handle_round_not_ready(game_state.character_states)
 
@@ -60,13 +60,8 @@ class GameStateHandler:
                                                            character_state.end_led_index,
                                                            (255, 0, 0))
 
-    def handle_round_ready(self, character_states):
-        character = ""
-        for item in character_states:
-            if item['turnState'] == 1:
-                character = item["id"]
-                print(character)
-                break
+    def handle_round_ready(self, game_state):
+        character = game_state.get_active_character()
 
         if self.prev_round_state == 0:
             self.led_controller.color_wipe()
