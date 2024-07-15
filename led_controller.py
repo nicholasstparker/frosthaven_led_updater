@@ -11,6 +11,7 @@ class LEDController:
         self.led_colors = [(0, 0, 0)] * num_pixels
         self.pixels.fill((0, 0, 0))
         self.pixels.show()
+
         self.start_up_sequence()
 
     def set_color(self, index: int, color: Tuple[int, int, int], bulk_update: bool = True):
