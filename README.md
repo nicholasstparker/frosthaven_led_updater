@@ -29,7 +29,7 @@ start_led_index: the first led index along to strip where a person is located.
 end_led_index: the last led index along the strip where a person is located.
 ```
 
-The below example is with a 300 led strip. However, I discovered that it lights up 3 per time, so 100 leds total. Currently, 100 addresses is the max supported as I need to update the lighting effects.
+The below example is with a 300 led strip. However, I discovered that it lights up 3 per time, so 100 addresses total. Currently, 100 addresses is the max supported as I need to update the lighting effects.
 
 ```
 [Player1]
