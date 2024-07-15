@@ -33,25 +33,25 @@ The below example is with a 300 led strip. However, I discovered that it lights 
 
 ```
 [Player1]
-character = Crashing Tide
+character = Banner Spear
 start_led_index = 0
 end_led_index = 15
 name = John
 
 [Player2]
-character = Trapper
+character = Blink Blade
 start_led_index = 16
 end_led_index = 31
 name = John
 
 [Player3]
-character = Pyroclast
+character = Deathwalker
 start_led_index = 32
 end_led_index = 47
 name = John
 
 [Player4]
-character = H.I.V.E.
+character = Geminate
 start_led_index = 48
 end_led_index = 63
 name = John

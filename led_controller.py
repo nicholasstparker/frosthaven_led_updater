@@ -11,6 +11,7 @@ class LEDController:
         self.led_colors = [(0, 0, 0)] * num_pixels
         self.pixels.fill((0, 0, 0))
         self.pixels.show()
+        self.start_up_sequence()
 
     def set_color(self, index: int, color: Tuple[int, int, int], bulk_update: bool = True):
         if 0 <= index < self.num_pixels:
@@ -48,6 +49,15 @@ class LEDController:
 
     def color_wipe(self, color: tuple[int, int, int] = (0, 0, 0), delay: float = 0.0):
         self.set_color_in_range(0, self.num_pixels, color, bulk_update=False, delay=delay)
+
+    def start_up_sequence(self):
+        self.color_wipe((255, 0, 0))
+        self.color_wipe()
+        self.color_wipe((0, 255, 0))
+        self.color_wipe()
+        self.color_wipe((0, 0, 255))
+        self.color_wipe()
+        self.color_wipe((255, 255, 255))
 
     def first_round_not_ready_animation(self):
         pass
