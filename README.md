@@ -1,4 +1,4 @@
-## Addressable LED strip control according to game state for Frosthaven Assistant
+## Addressable LED strip control for Frosthaven Assistant
 
 **WIP**
 
