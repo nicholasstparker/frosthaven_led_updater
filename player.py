@@ -26,6 +26,12 @@ class Players:
     def get_player(self, player: str) -> Player or None:
         return self.players.get(player, None)
 
+    def get_start_index(self, player: str) -> int:
+        return self.players.get(player).start_index
+
+    def get_end_index(self, player: str) -> int:
+        return self.players.get(player).end_index
+
 
 def read_config_and_parse_players() -> Players:
     config = configparser.ConfigParser()

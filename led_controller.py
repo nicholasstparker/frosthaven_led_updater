@@ -3,6 +3,7 @@ import neopixel
 import time
 from typing import Tuple
 
+
 class LEDController:
     """
     A controller for managing a strip of NeoPixel LEDs.
@@ -99,3 +100,10 @@ class LEDController:
         self.color_wipe((0, 0, 255))
         self.color_wipe()
         self.color_wipe((255, 255, 255))
+
+    def first_card_selection_round(self):
+        self.color_wipe()
+        self.set_color_in_range(0, 31, (255, 0, 0), bulk_update=False)
+        self.set_color_in_range(31, 51, (255, 255, 255), bulk_update=False)
+        self.set_color_in_range(51, 82, (255, 0, 0), bulk_update=False)
+        self.set_color_in_range(82, 100, (255, 255, 255), bulk_update=False)
