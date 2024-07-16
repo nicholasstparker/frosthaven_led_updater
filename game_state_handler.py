@@ -1,6 +1,6 @@
 import board
 from led_controller import LEDController
-from player_config import read_config
+from player import read_config
 from stack import Stack
 from game_state import GameState
 
@@ -28,9 +28,9 @@ class GameStateHandler:
             case 1:
                 self.handle_round_ready(game_state)
             case 0:
-                self.handle_round_not_ready(game_state.character_states)
+                self.handle_round_not_ready(game_state)
 
-    def handle_round_not_ready(self, character_states):
+    def handle_round_not_ready(self, game_state):
         if self.prev_round_state == 1:
             self.led_controller.color_wipe()
             self.led_controller.set_color_in_range(0, 31, (255, 0, 0), bulk_update=False)
@@ -41,14 +41,7 @@ class GameStateHandler:
             self.led_controller.set_color_in_range(31, 51, (255, 255, 255))
             self.led_controller.set_color_in_range(82, 100, (255, 255, 255))
 
-            for item in character_states:
-                initiative = None
-                state = item.get("characterState", None)
-                if state:
-                    initiative = state.get("initiative", None)
-                if initiative is not None:
-                    character = item["id"]
-                    self.players[character].initiative = initiative
+            game_state.handle_initiatives(self.players)
 
             for character, character_state in self.players.items():
                 if character_state.initiative != 0:

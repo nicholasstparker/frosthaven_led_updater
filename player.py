@@ -2,7 +2,7 @@ import configparser
 from typing import List
 
 
-class PlayerConfig:
+class Player:
     def __init__(self, character, start_led_index, end_led_index, name):
         self.character = character
         self.start_led_index = start_led_index
@@ -17,9 +17,9 @@ def read_config(file_path, players: List):
     player_list = []
     for player in players:
         player_config = config[player]
-        player = PlayerConfig(player_config['character'],
-                              int(player_config['start_led_index']),
-                              int(player_config['end_led_index']),
-                              player_config['name'])
+        player = Player(player_config['character'],
+                        int(player_config['start_led_index']),
+                        int(player_config['end_led_index']),
+                        player_config['name'])
         player_list.append(player)
     return player_list
