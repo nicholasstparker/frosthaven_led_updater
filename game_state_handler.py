@@ -38,12 +38,12 @@ class GameStateHandler:
 
             for player, player_state in self.players:
                 if player_state.initiative != 0:
-                    self.led_controller.set_color_in_range(player.start_index,
-                                                           player.end_index,
+                    self.led_controller.set_color_in_range(player_state.start_index,
+                                                           player_state.end_index,
                                                            (0, 255, 0))
                 else:
-                    self.led_controller.set_color_in_range(player.start_index,
-                                                           player.end_index,
+                    self.led_controller.set_color_in_range(player_state.start_index,
+                                                           player_state.end_index,
                                                            (255, 0, 0))
 
     def handle_round_phase(self, game_state):
