@@ -20,9 +20,6 @@ class LEDController:
                 self.pixels[index] = color
                 if bulk_update is False:
                     self.pixels.show()
-            else:
-                pass
-                # print(f"Pixel at index {index} is already {color}")
 
     def get_color(self, index: int) -> Tuple[int, int, int] or None:
         if 0 <= index < self.num_pixels:
@@ -58,9 +55,3 @@ class LEDController:
         self.color_wipe((0, 0, 255))
         self.color_wipe()
         self.color_wipe((255, 255, 255))
-
-    def first_round_not_ready_animation(self):
-        pass
-
-    def first_round_ready_animation(self):
-        pass

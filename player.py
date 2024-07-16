@@ -1,25 +1,39 @@
 import configparser
-from typing import List
 
 
 class Player:
-    def __init__(self, character, start_led_index, end_led_index, name):
-        self.character = character
-        self.start_led_index = start_led_index
-        self.end_led_index = end_led_index
-        self.name = name
-        self.initiative = None
+    def __init__(self, character, start_index, end_index, name):
+        self.character: str = character
+        self.start_index: int = start_index
+        self.end_index: int = end_index
+        self.name: str = name
+        self.initiative: int or None = None
 
 
-def read_config(file_path, players: List):
+class Players:
+    def __init__(self):
+        self.players: dict[str, Player] = dict()
+
+    def __iter__(self):
+        return iter(self.players.items())
+
+    def add_player(self, player: Player):
+        self.players[player.character] = player
+
+    def get_player(self, player: str) -> Player or None:
+        return self.players.get(player, None)
+
+
+def read_config_and_parse_players() -> Players:
     config = configparser.ConfigParser()
-    config.read(file_path)
-    player_list = []
-    for player in players:
+    config.read('settings.cfg')
+    player_list = ["Player1", "Player2", "Player3", "Player4"]
+    players = Players()
+    for player in player_list:
         player_config = config[player]
         player = Player(player_config['character'],
                         int(player_config['start_led_index']),
                         int(player_config['end_led_index']),
                         player_config['name'])
-        player_list.append(player)
-    return player_list
+        players.add_player(player)
+    return players
