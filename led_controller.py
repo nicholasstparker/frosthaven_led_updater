@@ -3,8 +3,25 @@ import neopixel
 import time
 from typing import Tuple
 
-
 class LEDController:
+    """
+    A controller for managing a strip of NeoPixel LEDs.
+
+    Attributes:
+        num_pixels (int): The number of pixels in the NeoPixel strip.
+        pixels (NeoPixel): The NeoPixel object representing the LED strip.
+        led_colors (list of tuple): A list of tuples representing the color of each LED in the strip.
+
+    Methods:
+        set_color(index, color, bulk_update): Sets the color of a single LED.
+        get_color(index): Returns the color of the LED at the specified index.
+        set_all_colors(color): Sets the color of all LEDs in the strip to the specified color.
+        set_color_in_range(start, end, color, bulk_update, delay): Sets the color of a range of LEDs.
+        clear(): Clears the LED strip, setting all LEDs to off.
+        color_wipe(color, delay): Fills the strip with a single color, one LED at a time.
+        start_up_sequence(): Performs a startup sequence, cycling through several colors.
+    """
+
     def __init__(self, pin: board, num_pixels: int = 100):
         self.num_pixels = num_pixels
         self.pixels = neopixel.NeoPixel(pin, num_pixels, brightness=1.0, auto_write=False, pixel_order="BRG")
@@ -14,6 +31,14 @@ class LEDController:
         self.start_up_sequence()
 
     def set_color(self, index: int, color: Tuple[int, int, int], bulk_update: bool = True):
+        """
+        Sets the color of a single LED.
+
+        Parameters:
+            index (int): The index of the LED to set.
+            color (Tuple[int, int, int]): The color to set the LED to.
+            bulk_update (bool): If False, updates the LED strip immediately.
+        """
         if 0 <= index < self.num_pixels:
             if not self.get_color(index) == color:
                 self.led_colors[index] = color
@@ -22,6 +47,15 @@ class LEDController:
                     self.pixels.show()
 
     def get_color(self, index: int) -> Tuple[int, int, int] or None:
+        """
+        Returns the color of the LED at the specified index.
+
+        Parameters:
+            index (int): The index of the LED.
+
+        Returns:
+            Tuple[int, int, int] or None: The color of the LED, or None if the index is out of range.
+        """
         if 0 <= index < self.num_pixels:
             return self.led_colors[index]
         return None
@@ -34,6 +68,16 @@ class LEDController:
             self.pixels.show()
 
     def set_color_in_range(self, start: int, end: int, color: Tuple[int, int, int], bulk_update: bool = True, delay: float = 0.0):
+        """
+        Sets the color of a range of LEDs.
+
+        Parameters:
+            start (int): The starting index of the range.
+            end (int): The ending index of the range.
+            color (Tuple[int, int, int]): The color to set the LEDs to.
+            bulk_update (bool): If True, updates the LED strip after setting all colors in the range.
+            delay (float): The delay between setting each LED's color.
+        """
         for i in range(start, end):
             self.set_color(i, color, bulk_update)
             if delay:

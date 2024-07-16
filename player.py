@@ -17,6 +17,9 @@ class Players:
     def __iter__(self):
         return iter(self.players.items())
 
+    def __contains__(self, character: str) -> bool:
+        return character in self.players
+
     def add_player(self, player: Player):
         self.players[player.character] = player
 
