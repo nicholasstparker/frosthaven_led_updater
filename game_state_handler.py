@@ -48,7 +48,7 @@ class GameStateHandler:
                 end_index = self.players.get_end_index(player)
                 self.led.set_color_in_range(0, start_index, (255, 255, 255), bulk_update=False)
                 self.led.set_color_in_range(start_index, end_index, (0, 255, 0), bulk_update=False)
-                self.led.set_color_in_range(start_index, 100, (255, 255, 255), bulk_update=False)
+                self.led.set_color_in_range(end_index, 100, (255, 255, 255), bulk_update=False)
             else:
                 self.led.set_color_in_range(0, 31, (255, 255, 255), bulk_update=False)
                 self.led.set_color_in_range(31, 51, (255, 0, 0), bulk_update=False)
