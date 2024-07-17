@@ -1,18 +1,19 @@
 import board
-from led_controller import LEDController
+from led_controller import LEDController, Color
 from parse_config import parse_config
 from stack import Stack
 from game_state import GameState
+from typing import Dict, Any
 
 
 class GameStateHandler:
-    def __init__(self):
+    def __init__(self, settings_file_path: str = "settings.cfg"):
         self.led = LEDController(board.D18, 100)
-        self.players = parse_config()
+        self.players, self.dummy_players = parse_config(settings_file_path, self.led)
         self.round_state_stack = Stack(0)
         self.prev_round_state = None
 
-    def handle(self, json):
+    def handle(self, json: Dict[str, Any]):
         game_state = GameState(json)
         self.prev_round_state = self.round_state_stack.peek()
         self.round_state_stack.push(game_state.round_state)
@@ -23,45 +24,34 @@ class GameStateHandler:
             case "CARD_SELECTION":
                 self.handle_card_selection_phase(game_state)
 
-    def handle_card_selection_phase(self, game_state):
+    def handle_card_selection_phase(self, game_state: GameState):
+        bulk_update = True
         if self.prev_round_state == "ROUND_PHASE":
-            self.led.first_card_selection_round()
-        else:
-            self.led.set_color_in_range(31, 51, (255, 255, 255))
-            self.led.set_color_in_range(82, 100, (255, 255, 255))
+            self.led.color_wipe()
+            bulk_update = False
+        game_state.set_initiatives(self.players)
+        for player, player_state in self.players:
+            match player_state.initiative:
+                case 0:
+                    player_state.set_player_color(Color.RED)
+                case _:
+                    player_state.set_player_color(Color.GREEN)
+        for dummy_player, dummy_player_state in self.dummy_players:
+            dummy_player_state.set_player_color(Color.WHITE)
+        self.led.update_led_state_to_future(bulk_update)
 
-            game_state.set_initiatives(self.players)
-
-            for player, player_state in self.players:
-                if player_state.initiative != 0:
-                    self.led.set_color_in_range(player_state.start_index, player_state.end_index, (0, 255, 0))
-                else:
-                    self.led.set_color_in_range(player_state.start_index, player_state.end_index, (255, 0, 0))
-
-    def handle_round_phase(self, game_state):
+    def handle_round_phase(self, game_state: GameState):
+        bulk_update = True
         player = game_state.get_active_player()
-
         if self.prev_round_state == "CARD_SELECTION":
             self.led.color_wipe()
-            if player in self.players:
-                start_index = self.players.get_start_index(player)
-                end_index = self.players.get_end_index(player)
-                self.led.set_color_in_range(0, start_index, (255, 255, 255), bulk_update=False)
-                self.led.set_color_in_range(start_index, end_index, (0, 255, 0), bulk_update=False)
-                self.led.set_color_in_range(end_index, 100, (255, 255, 255), bulk_update=False)
-            else:
-                self.led.set_color_in_range(0, 31, (255, 255, 255), bulk_update=False)
-                self.led.set_color_in_range(31, 51, (255, 0, 0), bulk_update=False)
-                self.led.set_color_in_range(31, 82, (255, 255, 255), bulk_update=False)
-                self.led.set_color_in_range(82, 100, (255, 0, 0), bulk_update=False)
+            bulk_update = False
+        if player in self.players:
+            self.led.set_future_led_state(0, self.led.num_pixels, Color.WHITE)
+            self.players.get_player(player).set_player_color(Color.GREEN)
         else:
-            self.led.set_all_colors((255, 255, 255))
-
-            if player in self.players:
-                start_index = self.players.get_start_index(player)
-                end_index = self.players.get_end_index(player)
-                self.led.set_color_in_range(start_index, end_index, (0, 255, 0))
-            else:
-                self.led.set_color_in_range(31, 51, (255, 0, 0))
-                self.led.set_color_in_range(82, 100, (255, 0, 0))
-
+            for player, player_state in self.players:
+                player_state.set_player_color(Color.WHITE)
+            for dummy_player, dummy_player_state in self.dummy_players:
+                dummy_player_state.set_player_color(Color.RED)
+        self.led.update_led_state_to_future(bulk_update)

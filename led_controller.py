@@ -1,5 +1,5 @@
-from mock_modules import MockBoard as board, MockNeoPixel as neopixel
-import time
+import neopixel
+# from mock_modules import MockNeoPixel as neopixel
 from typing import Tuple
 
 
@@ -13,32 +13,42 @@ class Color:
 
 class LEDController:
     """
-    A controller for managing a strip of NeoPixel LEDs.
+    A controller for managing LED states and animations for NeoPixel LEDs.
 
     Attributes:
-        num_pixels (int): The number of pixels in the NeoPixel strip.
+        num_pixels (int): The number of pixels in the LED strip.
         pixels (NeoPixel): The NeoPixel object representing the LED strip.
-        led_states (list of tuple): A list of tuples representing the color of each LED in the
-        strip. THIS IS SOFTWARE MANAGED STATE! LED data is one directional, so we resort to
-        keeping track of it's state in software. Everytime we update the LED strip, we update
-        led_states to update the current state.
+        led_states (list): The current color state of each LED. This is software state tracking.
+            LED data lines are one directional, so we'll track it here.
+        future_led_states (list): The future (intended) color state of each LED. The purpose of
+            this is to first update future_led_states, compare it to led_states, and then update the
+            strip all at one time. This is to prevent flickering of the LEDs and to ensure only one
+            led_state update per state change. It also allows animations of EVERY state with the
+            bulk_update flag.
+        pixels.show_called (bool): Flag to track if the `show` method has been called.
 
     Methods:
-        set_color(index, color, bulk_update): Sets the color of a single LED.
-        get_color(index): Returns the color of the LED at the specified index.
-        set_all_colors(color): Sets the color of all LEDs in the strip to the specified color.
-        set_color_in_range(start, end, color, bulk_update, delay): Sets the color of a range of LEDs.
-        clear(): Clears the LED strip, setting all LEDs to off.
-        color_wipe(color, delay): Fills the strip with a single color, one LED at a time.
-        start_up_sequence(): Performs a startup sequence, cycling through several colors.
+        get_current_color(led_index): Returns the current color of the specified LED.
+        get_future_color(led_index): Returns the future color of the specified LED.
+        current_color_equals_future_color(index): Checks if the current and future colors are the
+            same for the specified LED.
+        set_all_colors(color): Sets all LEDs to the specified color.
+        clear(): Turns off all LEDs.
+        start_up_sequence(): Executes a startup sequence of color wipes.
+        _update_led_color(led_index, color, bulk_update): Updates the color of a single LED.
+        update_single_led(led_index, color): Updates the color of a single LED and applies the
+            change immediately.
+        set_future_led_state(start, end, color): Sets the future state for a range of LEDs.
+        update_led_state_to_future(bulk_update): Updates the LED strip to match the future state.
+        color_wipe(color): Fills the LED strip with a single color, one LED at a time.
     """
 
-    def __init__(self, pin: board, num_pixels: int = 100):
+    def __init__(self, pin, num_pixels: int = 100):
         self.num_pixels = num_pixels
-        self.pixels = neopixel(pin, num_pixels,
-                               brightness=1.0,
-                               auto_write=False,
-                               pixel_order="BRG")
+        self.pixels = neopixel.NeoPixel(pin, num_pixels,
+                                        brightness=1.0,
+                                        auto_write=False,
+                                        pixel_order="BRG")
         self.led_states = [Color.OFF] * num_pixels
         self.future_led_states = [Color.OFF] * num_pixels
         self.pixels.fill(Color.OFF)
@@ -98,14 +108,4 @@ class LEDController:
 
     def color_wipe(self, color: Tuple[int, int, int] = Color.OFF):
         self.set_future_led_state(0, self.num_pixels, color)
-        self.update_led_state_to_future(bulk_update=False)
-
-
-class FrosthavenLEDStates(LEDController):
-    def first_card_selection_round(self):
-        self.color_wipe()
-        self.set_future_led_state(0, 31, Color.RED)
-        self.set_future_led_state(31, 51, Color.WHITE)
-        self.set_future_led_state(51, 82, Color.RED)
-        self.set_future_led_state(82, 100, Color.WHITE)
         self.update_led_state_to_future(bulk_update=False)

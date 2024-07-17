@@ -1,18 +1,25 @@
+from typing import Tuple, Iterator
+from led_controller import LEDController
+
+
 class Player:
-    def __init__(self, character, start_index, end_index, name, led_controller):
+    def __init__(self, character, start_index, end_index, name, led: LEDController):
         self.character: str = character
         self.start_index: int = start_index
         self.end_index: int = end_index
         self.name: str = name
-        self.led_controller = led_controller
+        self.led = led
         self.initiative: int or None = None
+
+    def set_player_color(self, color: tuple[int, int, int]):
+        self.led.set_future_led_state(self.start_index, self.end_index, color)
 
 
 class Players:
     def __init__(self):
         self.players: dict[str, Player] = dict()
 
-    def __iter__(self):
+    def __iter__(self) -> Iterator[Tuple[str, Player]]:
         return iter(self.players.items())
 
     def __contains__(self, character: str) -> bool:
@@ -23,9 +30,3 @@ class Players:
 
     def get_player(self, player: str) -> Player or None:
         return self.players.get(player, None)
-
-    def get_start_index(self, player: str) -> int:
-        return self.players.get(player).start_index
-
-    def get_end_index(self, player: str) -> int:
-        return self.players.get(player).end_index
