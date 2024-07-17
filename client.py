@@ -27,7 +27,8 @@ class Client:
                 self.send_ping()
                 break
             except Exception as e:
-                print(f'Error connecting to the server: {e}. Retrying in {self.reconnect_interval} seconds...')
+                print(f'Error connecting to the server: {e}. Retrying in {self.reconnect_interval} '
+                      f'seconds...')
                 time.sleep(self.reconnect_interval)
 
     def send(self, message):

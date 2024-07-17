@@ -25,7 +25,8 @@ class GameStateHandler:
                 self.handle_card_selection_phase(game_state)
 
     def handle_card_selection_phase(self, game_state: GameState):
-        bulk_update = True
+        bulk_update = True  # True means do not animate. False means animate. Goal is to animate
+        # only when switching round states.
         if self.prev_round_state == "ROUND_PHASE":
             self.led.color_wipe()
             bulk_update = False
@@ -41,7 +42,8 @@ class GameStateHandler:
         self.led.update_led_state_to_future(bulk_update)
 
     def handle_round_phase(self, game_state: GameState):
-        bulk_update = True
+        bulk_update = True  # True means do not animate. False means animate. Goal is to animate
+        # only when switching round states.
         player = game_state.get_active_player()
         if self.prev_round_state == "CARD_SELECTION":
             self.led.color_wipe()
