@@ -1,6 +1,6 @@
 import board
 from led_controller import LEDController
-from player import read_config_and_parse_players
+from parse_config import parse_config
 from stack import Stack
 from game_state import GameState
 
@@ -8,7 +8,7 @@ from game_state import GameState
 class GameStateHandler:
     def __init__(self):
         self.led = LEDController(board.D18, 100)
-        self.players = read_config_and_parse_players()
+        self.players = parse_config()
         self.round_state_stack = Stack(0)
         self.prev_round_state = None
 

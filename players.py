@@ -1,6 +1,3 @@
-import configparser
-
-
 class Player:
     def __init__(self, character, start_index, end_index, name):
         self.character: str = character
@@ -31,18 +28,3 @@ class Players:
 
     def get_end_index(self, player: str) -> int:
         return self.players.get(player).end_index
-
-
-def read_config_and_parse_players() -> Players:
-    config = configparser.ConfigParser()
-    config.read('settings.cfg')
-    player_list = ["Player1", "Player2", "Player3", "Player4"]
-    players = Players()
-    for player in player_list:
-        player_config = config[player]
-        player = Player(player_config['character'],
-                        int(player_config['start_led_index']),
-                        int(player_config['end_led_index']),
-                        player_config['name'])
-        players.add_player(player)
-    return players

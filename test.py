@@ -1,30 +1,42 @@
-from typing import Tuple
+import unittest
+from unittest.mock import patch, MagicMock
+import board
+from led_controller import LEDController, Color  # Replace `your_module` with the actual module name
 
 
-class Color:
-    def __init__(self, red: int, green: int, blue: int):
-        self.red = red
-        self.green = green
-        self.blue = blue
+class TestLEDController(unittest.TestCase):
 
-    def rgb(self) -> Tuple[int, int, int]:
-        return self.red, self.green, self.blue
+    @patch('neopixel.NeoPixel')
+    def test_initialization(self, MockNeoPixel):
+        mock_pixels = MagicMock()
+        MockNeoPixel.return_value = mock_pixels
 
-    def __eq__(self, other):
-        if isinstance(other, Color):
-            return self.rgb() == other.rgb()
-        elif isinstance(other, Tuple):
-            return self.rgb() == other
-        return False
+        controller = LEDController(pin=board.D18, num_pixels=100)
 
-    def __repr__(self):
-        return f"Color({self.red}, {self.green}, {self.blue})"
+        MockNeoPixel.assert_called_once_with(board.D18, 100, brightness=1.0, auto_write=False, pixel_order="BRG")
+
+    @patch('neopixel.NeoPixel')
+    def test_set_color(self, MockNeoPixel):
+        mock_pixels = MagicMock()
+        MockNeoPixel.return_value = mock_pixels
+        controller = LEDController(pin=board.D18, num_pixels=100)
+
+        controller.set_color(0, Color.RED.rgb())
+
+        mock_pixels.__setitem__.assert_called_once_with(0, (255, 0, 0))
+        mock_pixels.show.assert_called_once()
+
+    @patch('neopixel.NeoPixel')
+    def test_set_all_colors(self, MockNeoPixel):
+        mock_pixels = MagicMock()
+        MockNeoPixel.return_value = mock_pixels
+        controller = LEDController(pin=board.D18, num_pixels=100)
+
+        controller.set_all_colors(Color.GREEN.rgb())
+
+        mock_pixels.fill.assert_called_once_with((0, 255, 0))
+        mock_pixels.show.assert_called_once()
 
 
-Color.RED = Color(255, 0, 0)
-Color.GREEN = Color(0, 255, 0)
-Color.BLUE = Color(0, 0, 255)
-Color.WHITE = Color(255, 255, 255)
-Color.OFF = Color(0, 0, 0)
-
-print(Color.RED)
+if __name__ == '__main__':
+    unittest.main()
