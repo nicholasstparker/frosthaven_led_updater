@@ -12,6 +12,7 @@ class GameStateHandler:
         self.players, self.dummy_players = parse_config(settings_file_path, self.led)
         self.round_state_stack = Stack(0)
         self.prev_round_state = None
+        self.led.start_up_sequence()
 
     def handle(self, json: Dict[str, Any]):
         game_state = GameState(json)
