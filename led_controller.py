@@ -128,16 +128,18 @@ class LEDController:
         self.color_wipe()
         self.color_wipe((255, 255, 255))
 
-    def first_card_selection_round(self):
+    def first_card_selection_round(self, elements):
         self.color_wipe()
         self.set_color_in_range(0, 31, (255, 0, 0), bulk_update=False)
-        self.set_color_in_range(31, 51, (255, 255, 255), bulk_update=False)
+        # self.set_color_in_range(31, 51, (255, 255, 255), bulk_update=False)
+        self.set_element_colors(elements, bulk_update=False)
         self.set_color_in_range(51, 82, (255, 0, 0), bulk_update=False)
         self.set_color_in_range(82, 100, (255, 255, 255), bulk_update=False)
 
-    def set_element_colors(self, elements):
+    def set_element_colors(self, elements, bulk_update=False):
+        print(elements)
         for element, element_state in elements:
             if element_state.state in ["FULL", "WANING"]:
-                self.set_color_in_range(element_state.start_index, element_state.end_index, element_state.color)
+                self.set_color_in_range(element_state.start_index, element_state.end_index, element_state.color, bulk_update)
             else:
-                self.set_color_in_range(element_state.start_index, element_state.end_index, (0, 0, 0))
+                self.set_color_in_range(element_state.start_index, element_state.end_index, (0, 0, 0), bulk_update)

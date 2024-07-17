@@ -25,9 +25,10 @@ class GameStateHandler:
 
     def handle_card_selection_phase(self, game_state):
         if self.prev_round_state == "ROUND_PHASE":
-            self.led.first_card_selection_round()
+            self.led.first_card_selection_round(self.elements)
         else:
-            self.led.set_color_in_range(31, 51, (255, 255, 255))
+            # self.led.set_color_in_range(31, 51, (255, 255, 255))
+            self.led.set_element_colors(self.elements)
             self.led.set_color_in_range(82, 100, (255, 255, 255))
 
             game_state.set_initiatives(self.players)
@@ -37,7 +38,6 @@ class GameStateHandler:
                     self.led.set_color_in_range(player_state.start_index, player_state.end_index, (0, 255, 0))
                 else:
                     self.led.set_color_in_range(player_state.start_index, player_state.end_index, (255, 0, 0))
-        self.led.set_element_colors(self.elements)
 
     def handle_round_phase(self, game_state):
         player = game_state.get_active_player()
@@ -52,7 +52,8 @@ class GameStateHandler:
                 self.led.set_color_in_range(end_index, 100, (255, 255, 255), bulk_update=False)
             else:
                 self.led.set_color_in_range(0, 31, (255, 255, 255), bulk_update=False)
-                self.led.set_color_in_range(31, 51, (255, 0, 0), bulk_update=False)
+                # self.led.set_color_in_range(31, 51, (255, 0, 0), bulk_update=False)
+                self.led.set_element_colors(self.elements, bulk_update=False)
                 self.led.set_color_in_range(31, 82, (255, 255, 255), bulk_update=False)
                 self.led.set_color_in_range(82, 100, (255, 0, 0), bulk_update=False)
         else:
@@ -63,7 +64,5 @@ class GameStateHandler:
                 end_index = self.players.get_end_index(player)
                 self.led.set_color_in_range(start_index, end_index, (0, 255, 0))
             else:
-                self.led.set_color_in_range(31, 51, (255, 0, 0))
+                # self.led.set_color_in_range(31, 51, (255, 0, 0))
                 self.led.set_color_in_range(82, 100, (255, 0, 0))
-        self.led.set_element_colors(self.elements)
-
