@@ -141,4 +141,3 @@ class LEDController:
                 self.set_color_in_range(element_state.start_index, element_state.end_index, element_state.color)
             else:
                 self.set_color_in_range(element_state.start_index, element_state.end_index, (0, 0, 0))
-

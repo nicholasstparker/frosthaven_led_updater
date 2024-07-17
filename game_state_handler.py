@@ -37,6 +37,7 @@ class GameStateHandler:
                     self.led.set_color_in_range(player_state.start_index, player_state.end_index, (0, 255, 0))
                 else:
                     self.led.set_color_in_range(player_state.start_index, player_state.end_index, (255, 0, 0))
+        self.led.set_element_colors(self.elements)
 
     def handle_round_phase(self, game_state):
         player = game_state.get_active_player()
@@ -64,4 +65,5 @@ class GameStateHandler:
             else:
                 self.led.set_color_in_range(31, 51, (255, 0, 0))
                 self.led.set_color_in_range(82, 100, (255, 0, 0))
+        self.led.set_element_colors(self.elements)
 
