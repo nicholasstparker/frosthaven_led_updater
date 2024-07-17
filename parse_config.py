@@ -1,10 +1,11 @@
 import configparser
 from typing import Tuple
+from elements import Elements, Element
 from players import Players, Player
 from led_controller import LEDController
 
 
-def parse_config(file_path: str, led_controller: LEDController) -> Tuple[Players, Players]:
+def parse_config(file_path: str, led_controller: LEDController) -> Tuple[Players, Players, Elements]:
     """
     Parses a configuration file to create and return two collections of players: actual players and
     dummy players.
@@ -27,6 +28,7 @@ def parse_config(file_path: str, led_controller: LEDController) -> Tuple[Players
 
     players = Players()
     dummy_players = Players()
+    elements = Elements()
 
     for section in config.sections():
         if section.startswith('Player') or section.startswith('DummyPlayer'):
@@ -41,5 +43,15 @@ def parse_config(file_path: str, led_controller: LEDController) -> Tuple[Players
                 players.add_player(player)
             elif section.startswith('DummyPlayer'):
                 dummy_players.add_player(player)
+        elif section.startswith('Element'):
+            color = config[section]['color'].split(',')
+            element = Element(
+                config[section]['name'],
+                int(config[section]['start_led_index']),
+                int(config[section]['end_led_index']),
+                (int(color[0]), int(color[1]), int(color[2])),
+                led_controller
+            )
+            elements.add_element(element)
 
-    return players, dummy_players
+    return players, dummy_players, elements

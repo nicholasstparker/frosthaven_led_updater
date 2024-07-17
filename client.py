@@ -31,6 +31,10 @@ class Client:
                       f'seconds...')
                 time.sleep(self.reconnect_interval)
 
+    # def request_initial_state(self):
+    #     version = 191 # Update this to match your actual version
+    #     self.send(f"S3nD:init version:{version}[EOM]")
+
     def send(self, message):
         if self.sock:
             try:

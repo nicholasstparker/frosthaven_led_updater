@@ -9,7 +9,7 @@ from typing import Dict, Any
 class GameStateHandler:
     def __init__(self, settings_file_path: str = "settings.cfg"):
         self.led = LEDController(board.D18, 100)
-        self.players, self.dummy_players = parse_config(settings_file_path, self.led)
+        self.players, self.dummy_players, self.elements = parse_config(settings_file_path, self.led)
         self.round_state_stack = Stack(0)
         self.prev_round_state = None
         self.led.start_up_sequence()
@@ -40,6 +40,8 @@ class GameStateHandler:
                     player_state.set_player_color(Color.GREEN)
         for dummy_player, dummy_player_state in self.dummy_players:
             dummy_player_state.set_player_color(Color.WHITE)
+        for element, element_state in self.elements:
+            element_state.set_element_color(element.color)
         self.led.update_led_state_to_future(bulk_update)
 
     def handle_round_phase(self, game_state: GameState):
@@ -57,4 +59,6 @@ class GameStateHandler:
                 player_state.set_player_color(Color.WHITE)
             for dummy_player, dummy_player_state in self.dummy_players:
                 dummy_player_state.set_player_color(Color.RED)
+        for element, element_state in self.elements:
+            element_state.set_element_color(element.color)
         self.led.update_led_state_to_future(bulk_update)

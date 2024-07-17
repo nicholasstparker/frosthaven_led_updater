@@ -1,13 +1,20 @@
 from typing import Tuple
+from led_controller import LEDController, Color
 
 
 class Element:
-    def __init__(self, element: str, start_index: int, end_index: int, color: Tuple[int, int, int]):
+    def __init__(self, element: str, start_index: int, end_index: int, color: Tuple[int, int, int], led: LEDController):
         self.element = element
         self.start_index = start_index
         self.end_index = end_index
         self.color = color
+        self.led = led
         self.state = None
+
+    def set_element_color(self, color: tuple[int, int, int]):
+        self.led.set_future_led_state(31, 32, (0, 0, 0))
+        self.led.set_future_led_state(self.start_index, self.end_index, color)
+        self.led.set_future_led_state(50, 51, (0, 0, 0))
 
 
 class Elements:
@@ -34,3 +41,11 @@ class Elements:
 
     def get_state(self, element: str) -> str or None:
         return self.elements.get(element).state
+
+    def set_all_element_colors(self):
+        for element, element_state in self.elements.items():
+            match element_state.state:
+                case "DEAD":
+                    element.set_element_color(element_state.start_index, element_state.end_index, Color.OFF)
+                case _:
+                    element.set_element_color(element_state.start_index, element_state.end_index, element_state.color)
