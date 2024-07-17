@@ -58,6 +58,9 @@ class GameStateHandler:
                 self.led.set_color_in_range(82, 100, (255, 0, 0), bulk_update=False)
         else:
             self.led.set_all_colors((255, 255, 255))
+            self.led.set_color_in_range(0, 32, (255, 255, 255))
+            self.led.set_element_colors(self.elements)
+            self.led.set_color_in_range(51, 100, (255, 255, 255))
 
             if player in self.players:
                 start_index = self.players.get_start_index(player)
