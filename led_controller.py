@@ -138,9 +138,9 @@ class LEDController:
 
     def set_element_colors(self, elements, bulk_update=True):
         self.set_color(31, (0, 0, 0), bulk_update)
+        self.set_color(50, (0, 0, 0), bulk_update)
         for element, element_state in elements:
             if element_state.state in ["FULL", "WANING"]:
                 self.set_color_in_range(element_state.start_index, element_state.end_index, element_state.color, bulk_update)
             else:
                 self.set_color_in_range(element_state.start_index, element_state.end_index, (0, 0, 0), bulk_update)
-        self.set_color(51, (0, 0, 0), bulk_update)
