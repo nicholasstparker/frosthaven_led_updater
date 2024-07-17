@@ -1,19 +1,19 @@
 import board
 from led_controller import LEDController
-from player import read_config_and_parse_players
 from stack import Stack
 from game_state import GameState
+from config_parser import parse_config
 
 
 class GameStateHandler:
     def __init__(self):
         self.led = LEDController(board.D18, 100)
-        self.players = read_config_and_parse_players()
+        self.players, self.elements = parse_config()
         self.round_state_stack = Stack(0)
         self.prev_round_state = None
 
     def handle(self, json):
-        game_state = GameState(json)
+        game_state = GameState(json, self.elements)
         self.prev_round_state = self.round_state_stack.peek()
         self.round_state_stack.push(game_state.round_state)
 
