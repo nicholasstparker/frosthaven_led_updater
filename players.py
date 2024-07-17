@@ -1,9 +1,10 @@
 class Player:
-    def __init__(self, character, start_index, end_index, name):
+    def __init__(self, character, start_index, end_index, name, led_controller):
         self.character: str = character
         self.start_index: int = start_index
         self.end_index: int = end_index
         self.name: str = name
+        self.led_controller = led_controller
         self.initiative: int or None = None
 
 

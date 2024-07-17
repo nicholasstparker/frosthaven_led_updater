@@ -15,7 +15,7 @@ def parse_config(file_path="settings.cfg") -> Players:
                 int(config[section]['start_led_index']),
                 int(config[section]['end_led_index']),
                 config[section]['name']
-            )
+                )
             players.add_player(player)
 
     return players

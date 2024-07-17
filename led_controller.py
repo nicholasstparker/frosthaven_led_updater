@@ -1,34 +1,14 @@
-import board
-import neopixel
+from mock_modules import MockBoard as board, MockNeoPixel as neopixel
 import time
 from typing import Tuple
 
 
 class Color:
-    def __init__(self, red: int, green: int, blue: int):
-        self.red = red
-        self.green = green
-        self.blue = blue
-
-    def rgb(self) -> Tuple[int, int, int]:
-        return self.red, self.green, self.blue
-
-    def __eq__(self, other):
-        if isinstance(other, Color):
-            return self.rgb() == other.rgb()
-        elif isinstance(other, Tuple):
-            return self.rgb() == other
-        return False
-
-    def __repr__(self):
-        return f"Color({self.red}, {self.green}, {self.blue})"
-
-
-Color.RED = Color(255, 0, 0)
-Color.GREEN = Color(0, 255, 0)
-Color.BLUE = Color(0, 0, 255)
-Color.WHITE = Color(255, 255, 255)
-Color.OFF = Color(0, 0, 0)
+    RED: Tuple[int, int, int] = (255, 0, 0)
+    GREEN: Tuple[int, int, int] = (0, 255, 0)
+    BLUE: Tuple[int, int, int] = (0, 0, 255)
+    WHITE: Tuple[int, int, int] = (255, 255, 255)
+    OFF: Tuple[int, int, int] = (0, 0, 0)
 
 
 class LEDController:
@@ -38,7 +18,10 @@ class LEDController:
     Attributes:
         num_pixels (int): The number of pixels in the NeoPixel strip.
         pixels (NeoPixel): The NeoPixel object representing the LED strip.
-        led_colors (list of tuple): A list of tuples representing the color of each LED in the strip.
+        led_states (list of tuple): A list of tuples representing the color of each LED in the
+        strip. THIS IS SOFTWARE MANAGED STATE! LED data is one directional, so we resort to
+        keeping track of it's state in software. Everytime we update the LED strip, we update
+        led_states to update the current state.
 
     Methods:
         set_color(index, color, bulk_update): Sets the color of a single LED.
@@ -52,85 +35,77 @@ class LEDController:
 
     def __init__(self, pin: board, num_pixels: int = 100):
         self.num_pixels = num_pixels
-        self.pixels = neopixel.NeoPixel(pin, num_pixels, brightness=1.0, auto_write=False, pixel_order="BRG")
-        self.led_colors = [(0, 0, 0)] * num_pixels
-        self.pixels.fill((0, 0, 0))
+        self.pixels = neopixel(pin, num_pixels,
+                               brightness=1.0,
+                               auto_write=False,
+                               pixel_order="BRG")
+        self.led_states = [Color.OFF] * num_pixels
+        self.future_led_states = [Color.OFF] * num_pixels
+        self.pixels.fill(Color.OFF)
         self.pixels.show()
-        self.start_up_sequence()
+        self.pixels.show_called = False
 
-    def set_color(self, index: int, color: Tuple[int, int, int], bulk_update: bool = True):
-        """
-        Sets the color of a single LED.
+    def get_current_color(self, led_index: int) -> Tuple[int, int, int]:
+        return self.led_states[led_index]
 
-        Parameters:
-            index (int): The index of the LED to set.
-            color (Tuple[int, int, int]): The color to set the LED to.
-            bulk_update (bool): If False, updates the LED strip immediately.
-        """
-        if 0 <= index < self.num_pixels:
-            if not self.get_color(index) == color:
-                self.led_colors[index] = color
-                self.pixels[index] = color
-                if bulk_update is False:
-                    self.pixels.show()
+    def get_future_color(self, led_index: int) -> Tuple[int, int, int]:
+        return self.future_led_states[led_index]
 
-    def get_color(self, index: int) -> Tuple[int, int, int] or None:
-        """
-        Returns the color of the LED at the specified index.
-
-        Parameters:
-            index (int): The index of the LED.
-
-        Returns:
-            Tuple[int, int, int] or None: The color of the LED, or None if the index is out of range.
-        """
-        if 0 <= index < self.num_pixels:
-            return self.led_colors[index]
-        return None
+    def current_color_equals_future_color(self, index: int) -> bool:
+        return self.get_current_color(index) == self.get_future_color(index)
 
     def set_all_colors(self, color: Tuple[int, int, int]):
-        temp_colors = [color] * self.num_pixels
-        if temp_colors != self.led_colors:
-            self.led_colors = temp_colors
+        self.future_led_states = [color] * self.num_pixels
+        if self.future_led_states != self.led_states:
+            self.led_states = self.future_led_states
             self.pixels.fill(color)
             self.pixels.show()
 
-    def set_color_in_range(self, start: int, end: int, color: Tuple[int, int, int], bulk_update: bool = True, delay: float = 0.0):
-        """
-        Sets the color of a range of LEDs.
+    def clear(self):
+        self.set_all_colors(Color.OFF)
 
-        Parameters:
-            start (int): The starting index of the range.
-            end (int): The ending index of the range.
-            color (Tuple[int, int, int]): The color to set the LEDs to.
-            bulk_update (bool): If True, updates the LED strip after setting all colors in the range.
-            delay (float): The delay between setting each LED's color.
-        """
-        for i in range(start, end):
-            self.set_color(i, color, bulk_update)
-            if delay:
-                time.sleep(delay)
+    def start_up_sequence(self):
+        self.color_wipe(Color.RED)
+        self.color_wipe()
+        self.color_wipe(Color.GREEN)
+        self.color_wipe()
+        self.color_wipe(Color.BLUE)
+        self.color_wipe()
+        self.color_wipe(Color.WHITE)
+        self.color_wipe()
+
+    def _update_led_color(self, led_index: int, color: Tuple[int, int, int], bulk_update=True):
+        self.pixels[led_index] = color
+        if bulk_update is False:
+            self.pixels.show()
+
+    def update_single_led(self, led_index: int, color: Tuple[int, int, int]):
+        self.set_future_led_state(led_index, led_index + 1, color)
+        self.update_led_state_to_future()
+
+    def set_future_led_state(self, start: int, end: int, color: Tuple[int, int, int]):
+        for led_index in range(start, end):
+            if self.get_current_color(led_index) != color:
+                self.future_led_states[led_index] = color
+
+    def update_led_state_to_future(self, bulk_update=True):
+        for led_index in range(self.num_pixels):
+            if self.current_color_equals_future_color(led_index) is False:
+                self.led_states[led_index] = self.future_led_states[led_index]
+                self._update_led_color(led_index, self.led_states[led_index], bulk_update)
         if bulk_update is True:
             self.pixels.show()
 
-    def clear(self):
-        self.set_all_colors((0, 0, 0))
+    def color_wipe(self, color: Tuple[int, int, int] = Color.OFF):
+        self.set_future_led_state(0, self.num_pixels, color)
+        self.update_led_state_to_future(bulk_update=False)
 
-    def color_wipe(self, color: tuple[int, int, int] = (0, 0, 0), delay: float = 0.0):
-        self.set_color_in_range(0, self.num_pixels, color, bulk_update=False, delay=delay)
 
-    def start_up_sequence(self):
-        self.color_wipe((255, 0, 0))
-        self.color_wipe()
-        self.color_wipe((0, 255, 0))
-        self.color_wipe()
-        self.color_wipe((0, 0, 255))
-        self.color_wipe()
-        self.color_wipe((255, 255, 255))
-
+class FrosthavenLEDStates(LEDController):
     def first_card_selection_round(self):
         self.color_wipe()
-        self.set_color_in_range(0, 31, (255, 0, 0), bulk_update=False)
-        self.set_color_in_range(31, 51, (255, 255, 255), bulk_update=False)
-        self.set_color_in_range(51, 82, (255, 0, 0), bulk_update=False)
-        self.set_color_in_range(82, 100, (255, 255, 255), bulk_update=False)
+        self.set_future_led_state(0, 31, Color.RED)
+        self.set_future_led_state(31, 51, Color.WHITE)
+        self.set_future_led_state(51, 82, Color.RED)
+        self.set_future_led_state(82, 100, Color.WHITE)
+        self.update_led_state_to_future(bulk_update=False)
