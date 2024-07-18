@@ -4,7 +4,7 @@
 
 **WIP**
 
-[Video in action](https://streamable.com/2la4t8)
+[Video (same as above but longer and full res)](https://streamable.com/2la4t8)
 
 Made to run on a raspberry pi that controls an led strip. See [this](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) guide for details: 
 
@@ -24,6 +24,7 @@ Links:
 - [Logic level converter](https://www.amazon.com/KeeYees-Channels-Converter-Bi-Directional-Shifter/dp/B07LG646VS?pd_rd_w=tlNdK&content-id=amzn1.sym.378a0f29-5acb-4c80-bc6e-087cd6806daf&pf_rd_p=378a0f29-5acb-4c80-bc6e-087cd6806daf&pf_rd_r=SAK4DYA6KJKSG28RVTH2&pd_rd_wg=5iHhp&pd_rd_r=ebded6a3-37b7-43ed-b50e-dff2204847aa&pd_rd_i=B07LG646VS&psc=1&ref_=pd_bap_d_grid_rp_0_1_ec_pr_sr_ppb_t)
 - [24v Power supply](https://www.amazon.com/gp/product/B0B1CZYQF8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
 - [24v to 12v 10A Step Down](https://www.amazon.com/gp/product/B09X1ZG6K8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1)
+- [5v Buck converter to power Pi](https://www.amazon.com/Adjustable-Converter-Step-Down-Regulator-Stabilizer/dp/B081N6WWJS/ref=sr_1_4?crid=BKM3NKJ34UQO&dib=eyJ2IjoiMSJ9.SOd-7SjAEiqFrIC5kk8Klvr4cwZvbwuGy7k38CwRIjGgfCH0cJyw-V4IOJw8V9os3CCWxN4zeJTYChccLOn96aQc6SKhZRSCbP1oMF3JOKFrOh093WhLg6MKsW1rYD7xrB4qgMOuyrN8M1lVwIQCYGItQaZgrdoZNOvoo3yObhFFJh212icWfTfD0_TnQhOTGESzXzbCXfUzsdtFDsYllyLqmYLfYntQ8bZpCmjbXpc36SXDHX1dCkobLKwGenh-0fuvAMPCqgDfN7zhB66rkmDn5B1Qbfm5hgvLpPa5fDs.DhpHcOSnusQ8FPHs1KDRHpcmYGaA4GEpHywDWQG36eE&dib_tag=se&keywords=5v+buck&qid=1721307067&sprefix=5v+buc%2Caps%2C126&sr=8-4)
 
 Pictures:
 ![Electronics Box Setup](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/electronics_setup.jpg)
