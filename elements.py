@@ -46,6 +46,6 @@ class Elements:
         for element, element_state in self.elements.items():
             match element_state.state:
                 case "DEAD":
-                    element_state.set_element_color(element_state.start_index, element_state.end_index, Color.OFF)
+                    element_state.set_element_color(Color.OFF)
                 case _:
-                    element_state.set_element_color(element_state.start_index, element_state.end_index, element_state.color)
+                    element_state.set_element_color(element_state.color)
