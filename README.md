@@ -1,15 +1,17 @@
 ## Addressable LED strip control for Frosthaven Assistant
 
+![Lights in Action](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/table_working.gif)
+
 **WIP**
 
 [Video in action](https://streamable.com/2la4t8)
 
 Made to run on a raspberry pi that controls an led strip. See [this](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) guide for details: 
 
-Works exclusively with the wonderful [FrosthavenAssistant](https://github.com/Tarmslitaren/FrosthavenAssistant) by Tarmslitaren 
+Works with the wonderful [FrosthavenAssistant](https://github.com/Tarmslitaren/FrosthavenAssistant) by Tarmslitaren 
 
 ## Current effects
-Card selection phase: Light up table ends in white, show players in red. When a player selects their initiative and is ready, update their color to green.
+Card selection phase: Light up table end in white, show players in red. When a player selects their initiative and is ready, update their color to green.
 
 Round phase: Light up whomever's turn it is in green. The rest will be white. When it's an enemies turn, light up the end in red and players in white.
 
@@ -24,6 +26,8 @@ Links:
 - [24v to 12v 10A Step Down](https://www.amazon.com/gp/product/B09X1ZG6K8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1)
 
 Pictures:
+![Electronics Box Setup](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/electronics_setup.jpg)
+![Logic Level Converter Setup](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/line_level_setup.jpg)
 
 ## Guide
 - Follow [this guide](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) to get the LED strip working on the Pi.
