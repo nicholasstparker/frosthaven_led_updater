@@ -50,9 +50,15 @@ class GameStateHandler:
         if self.prev_round_state == "CARD_SELECTION":
             self.led.color_wipe()
             bulk_update = False
+
         if player in self.players:
-            self.led.set_future_led_state(0, self.led.num_pixels, Color.WHITE)
+            for player_, player_state_ in self.players:
+                if player_ != player:
+                    player_state_.set_player_color(Color.WHITE)
             self.players.get_player(player).set_player_color(Color.GREEN)
+            for dummy_player, dummy_player_state in self.dummy_players:
+                dummy_player_state.set_player_color(Color.WHITE)
+
         else:
             for player, player_state in self.players:
                 player_state.set_player_color(Color.WHITE)
