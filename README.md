@@ -38,8 +38,7 @@ Pictures:
 > the signal wires and ground wires. There should be 6 wires total hooked up to the line level 
 > converter. See picture above for reference.
 - Clone this repository
-- Edit "settings.cfg" file in the project directory according to your settings
-  (https://github.com/nicholas-st-parker/x_haven_led_updater/new/master?filename=README.md#settingscfg) header below, 
+- Edit "settings.cfg" file in the project directory according to your settings. [See header below for details](https://github.com/nicholas-st-parker/frosthaven_led_updater/tree/master?tab=readme-ov-file#example-settingscfg)
 - Start a FroshavenAssistant server.
 - Change ip address and port in main.py to match the FrosthavenAssistant server IP and port.
 - Run main.py
