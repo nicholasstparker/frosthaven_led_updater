@@ -15,7 +15,7 @@ class GameStateHandler:
         self.led.start_up_sequence()
 
     def handle(self, json: Dict[str, Any]):
-        game_state = GameState(json)
+        game_state = GameState(json, self.elements)
         self.prev_round_state = self.round_state_stack.peek()
         self.round_state_stack.push(game_state.round_state)
 
