@@ -3,6 +3,10 @@ import neopixel
 from typing import Tuple
 
 
+# For testing, use the mock_modules.py file to mock the neopixel module. remove NeoPixel from the
+# LEDController class so it uses neopixel instead of neopixel.NeoPixel.
+
+
 class Color:
     RED: Tuple[int, int, int] = (255, 0, 0)
     GREEN: Tuple[int, int, int] = (0, 255, 0)

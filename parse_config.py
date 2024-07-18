@@ -16,8 +16,9 @@ def parse_config(file_path: str, led_controller: LEDController) -> Tuple[Players
         the respective Players collection.
 
     Args:
-        file_path (str): The path to the configuration file to be parsed. led_controller
-        (LEDController): An instance of LEDController to be associated with each player.
+        file_path (str): The path to the configuration file to be parsed.
+        led_controller (LEDController): An instance of LEDController to be associated with each
+        player.
 
     Returns:
         Tuple[Players, Players]: A tuple containing two Players instances. The first one contains
