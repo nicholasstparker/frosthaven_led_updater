@@ -37,7 +37,7 @@ Pictures:
 > strip. The line level converter needs to be powered by 3.3v and 5 volt power, in addition to 
 > the signal wires and ground wires. There should be 6 wires total hooked up to the line level 
 > converter. See picture above for reference.
-- Clone this repository
+- Clone this repository on Pi
 - Edit "settings.cfg" file in the project directory according to your settings. [See header below for details](https://github.com/nicholas-st-parker/frosthaven_led_updater/tree/master?tab=readme-ov-file#example-settingscfg)
 - Start a FroshavenAssistant server.
 - Change ip address and port in main.py to match the FrosthavenAssistant server IP and port.
