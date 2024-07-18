@@ -44,6 +44,7 @@ class Elements:
 
     def set_all_element_colors(self):
         for element, element_state in self.elements.items():
+            print(element, element_state)
             match element_state.state:
                 case "DEAD":
                     element.set_element_color(element_state.start_index, element_state.end_index, Color.OFF)
