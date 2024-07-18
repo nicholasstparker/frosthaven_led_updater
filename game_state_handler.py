@@ -40,8 +40,7 @@ class GameStateHandler:
                     player_state.set_player_color(Color.GREEN)
         for dummy_player, dummy_player_state in self.dummy_players:
             dummy_player_state.set_player_color(Color.WHITE)
-        for element, element_state in self.elements:
-            element_state.set_element_color(element_state.color)
+        self.elements.set_all_element_colors()
         self.led.update_led_state_to_future(bulk_update)
 
     def handle_round_phase(self, game_state: GameState):
@@ -59,6 +58,5 @@ class GameStateHandler:
                 player_state.set_player_color(Color.WHITE)
             for dummy_player, dummy_player_state in self.dummy_players:
                 dummy_player_state.set_player_color(Color.RED)
-        for element, element_state in self.elements:
-            element_state.set_element_color(element_state.color)
+        self.elements.set_all_element_colors()
         self.led.update_led_state_to_future(bulk_update)
