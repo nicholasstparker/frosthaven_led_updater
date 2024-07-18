@@ -11,48 +11,60 @@ Works exclusively with the wonderful [FrosthavenAssistant](https://github.com/Ta
 ## Current effects
 Card selection phase: Light up table ends in white, show players in red. When a player selects their initiative and is ready, update their color to green.
 
-Round phase: Light up whomever's turn it is in green. The rest will be white. When it's an enemies turn, light up the ends in red and players in white.
+Round phase: Light up whomever's turn it is in green. The rest will be white. When it's an enemies turn, light up the end in red and players in white.
+
+Elements: When an element is created, light up the ends in the element color.
+
+## Hardware
+Links:
+- [Raspberry Pi 3b+](https://www.raspberrypi.com/products/raspberry-pi-3-model-b-plus/)
+- [12v LED strip](https://www.amazon.com/BTF-LIGHTING-300LEDs-Addressable-Flexible-Non-waterproof/dp/B01CNL6K52?pd_rd_w=nRFHk&content-id=amzn1.sym.0c0e3277-1675-489c-a566-ea075b32087a&pf_rd_p=0c0e3277-1675-489c-a566-ea075b32087a&pf_rd_r=4ZGYHJ5A457XQB3MZMKR&pd_rd_wg=QBOrn&pd_rd_r=64e79d08-602f-4aee-b0ea-9b27f01763e5&pd_rd_i=B01CNL6K52&psc=1&ref_=pd_basp_d_rpt_ba_s_6_t)
+- [Logic level converter](https://www.amazon.com/KeeYees-Channels-Converter-Bi-Directional-Shifter/dp/B07LG646VS?pd_rd_w=tlNdK&content-id=amzn1.sym.378a0f29-5acb-4c80-bc6e-087cd6806daf&pf_rd_p=378a0f29-5acb-4c80-bc6e-087cd6806daf&pf_rd_r=SAK4DYA6KJKSG28RVTH2&pd_rd_wg=5iHhp&pd_rd_r=ebded6a3-37b7-43ed-b50e-dff2204847aa&pd_rd_i=B07LG646VS&psc=1&ref_=pd_bap_d_grid_rp_0_1_ec_pr_sr_ppb_t)
+- [24v Power supply](https://www.amazon.com/gp/product/B0B1CZYQF8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&psc=1)
+- [24v to 12v 10A Step Down](https://www.amazon.com/gp/product/B09X1ZG6K8/ref=ppx_yo_dt_b_search_asin_title?ie=UTF8&th=1)
+
+Pictures:
 
 ## Guide
 - Follow [this guide](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) to get the LED strip working on the Pi.
 > [!NOTE]
-> My setup needed a line level converter to convert the 3.3v data signal to 5v for the led strip. The line level converter needs to be powered by 3.3v and 5 volt power, in addition to the signal wires and ground wires. There should be 6 wires total hooked up to the line level converter.
+> My setup needed a logic level converter to convert the 3.3v data signal to 5v for the led 
+> strip. The line level converter needs to be powered by 3.3v and 5 volt power, in addition to 
+> the signal wires and ground wires. There should be 6 wires total hooked up to the line level 
+> converter. See picture above for reference.
 - Clone this repository
-- Create a "settings.cfg" file in the project directory, set it up according to the ["settings.cfg"](https://github.com/nicholas-st-parker/x_haven_led_updater/new/master?filename=README.md#settingscfg) header below, 
+- Edit "settings.cfg" file in the project directory according to your settings
+  (https://github.com/nicholas-st-parker/x_haven_led_updater/new/master?filename=README.md#settingscfg) header below, 
 - Start a FroshavenAssistant server.
-- Change ip address and port in client.py to match the FrosthavenAssistant server
+- Change ip address and port in main.py to match the FrosthavenAssistant server IP and port.
 - Run main.py
 
 ## Example settings.cfg
 ```
+[Playerx]
+character: fill in the character name you want to light up. EG: "Brute" I will have a full 
+character list shortly with spoiler tags.
 start_led_index: the first led index along to strip where a person is located.
 end_led_index: the last led index along the strip where a person is located.
+name: Does not matter. No function yet. Do not leave blank.
+
+[DummyPlayerx]
+character: Fill a random name in here.
+start_led_index: led start and endindex for dummy players determine the leftover leds where no 
+elements and no players are located.
+end_led_index: ^
+name: Does not matter. No function yet.
+Do not leave blank.
+
+[Elementx]
+element = do not change these.
+start_led_index = start led of the specific element.
+end_led_index = end led of the specific element.
+color = color of the element. colors are passed like "r,g,b", without quotes and without spaces, 
+where r is red, g is green and b is blue.
 ```
 
-The below example is with a 300 led strip. However, I discovered that it lights up 3 per time, so 100 addresses total. Currently, 100 addresses is the max supported as I need to update the lighting effects.
+You will need to play around with the indexes to find what works for your setup. Light up a 
+couple at a time and count the leds to find the indexes.
 
-```
-[Player1]
-character = Banner Spear
-start_led_index = 0
-end_led_index = 15
-name = John
-
-[Player2]
-character = Blink Blade
-start_led_index = 16
-end_led_index = 31
-name = John
-
-[Player3]
-character = Deathwalker
-start_led_index = 32
-end_led_index = 47
-name = John
-
-[Player4]
-character = Geminate
-start_led_index = 48
-end_led_index = 63
-name = John
-```
+My setup is with a 100 address strip. It's technically 300 leds, but they light up three at a time.
