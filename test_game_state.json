@@ -1,0 +1,950 @@
+{
+    "level": 5,
+    "solo": false,
+    "autoScenarioLevel": true,
+    "difficulty": 1,
+    "roundState": 0,
+    "round": 1,
+    "totalRounds": 1,
+    "scenario": "#115 Pylon Problems",
+    "toastMessage": "",
+    "scenarioSpecialRules": [
+        {
+            "type": "Timer",
+            "note": "Scenario Complete! Read section 33.4.",
+            "name": "",
+            "health": "",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": false,
+            "list": [
+                10
+            ]
+        },
+        {
+            "type": "Timer",
+            "note": "Spawn Algox Guards at each A and B. Normal for 2 characters, elite at B for 3 characters and all elite for 4.",
+            "name": "spawn 1",
+            "health": "",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": [
+                5
+            ]
+        },
+        {
+            "type": "Timer",
+            "note": "Spawn Algox Snowspeaker at each A. Normal for 2 characters, elite for 2-3. Also spawn two Snow Imps at each B. Normal for 2-3 characters, elite for 4.",
+            "name": "spawn 2",
+            "health": "",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": [
+                8
+            ]
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 1",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 2",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 3",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 4",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 5",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 6",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        },
+        {
+            "type": "Escort",
+            "note": "",
+            "name": "Ice Pillar 7",
+            "health": "L+3",
+            "condition": "",
+            "init": 99,
+            "level": 0,
+            "startOfRound": true,
+            "list": []
+        }
+    ],
+    "scenarioSectionsAdded": [],
+    "currentCampaign": "Frosthaven",
+    "currentList": [
+        {
+            "id": "Crashing Tide",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 0,
+                "health": 24,
+                "maxHealth": 24,
+                "level": 8,
+                "xp": 0,
+                "chill": 0,
+                "display": "Mr. Krabs",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Crashing Tide"
+        },
+        {
+            "id": "H.I.V.E.",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 0,
+                "health": 14,
+                "maxHealth": 14,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "6 Of 9",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "H.I.V.E."
+        },
+        {
+            "id": "Trapper",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 1,
+                "health": 14,
+                "maxHealth": 14,
+                "level": 9,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ralfonzo",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Trapper"
+        },
+        {
+            "id": "Pyroclast",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 3,
+                "health": 14,
+                "maxHealth": 14,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Caklava",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Pyroclast"
+        },
+        {
+            "id": "Ice Pillar 1",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 1",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Ice Pillar 2",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 2",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Ice Pillar 3",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 3",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Ice Pillar 4",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 4",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Ice Pillar 5",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 5",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Ice Pillar 6",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 6",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Ice Pillar 7",
+            "turnState": 0,
+            "characterState": {
+                "initiative": 99,
+                "health": 8,
+                "maxHealth": 8,
+                "level": 5,
+                "xp": 0,
+                "chill": 0,
+                "display": "Ice Pillar 7",
+                "summonList": [],
+                "conditions": [],
+                "conditionsAddedThisTurn": [],
+                "conditionsAddedPreviousTurn": []
+            },
+            "characterClass": "Escort"
+        },
+        {
+            "id": "Algox Guard",
+            "turnState": 0,
+            "isActive": false,
+            "type": "Algox Guard",
+            "monsterInstances": [
+                {
+                    "health": 19,
+                    "maxHealth": 19,
+                    "level": 5,
+                    "standeeNr": 1,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Algox Guard",
+                    "gfx": "Algox Guard",
+                    "roundSummoned": -1,
+                    "type": 0,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                },
+                {
+                    "health": 19,
+                    "maxHealth": 19,
+                    "level": 5,
+                    "standeeNr": 2,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Algox Guard",
+                    "gfx": "Algox Guard",
+                    "roundSummoned": -1,
+                    "type": 0,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                },
+                {
+                    "health": 19,
+                    "maxHealth": 19,
+                    "level": 5,
+                    "standeeNr": 3,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Algox Guard",
+                    "gfx": "Algox Guard",
+                    "roundSummoned": -1,
+                    "type": 0,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                }
+            ],
+            "isAlly": false,
+            "level": 5
+        },
+        {
+            "id": "Algox Snowspeaker",
+            "turnState": 0,
+            "isActive": false,
+            "type": "Algox Snowspeaker",
+            "monsterInstances": [
+                {
+                    "health": 21,
+                    "maxHealth": 21,
+                    "level": 5,
+                    "standeeNr": 1,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Algox Snowspeaker",
+                    "gfx": "Algox Snowspeaker",
+                    "roundSummoned": -1,
+                    "type": 1,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                },
+                {
+                    "health": 21,
+                    "maxHealth": 21,
+                    "level": 5,
+                    "standeeNr": 3,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Algox Snowspeaker",
+                    "gfx": "Algox Snowspeaker",
+                    "roundSummoned": -1,
+                    "type": 1,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                }
+            ],
+            "isAlly": false,
+            "level": 5
+        },
+        {
+            "id": "Snow Imp",
+            "turnState": 0,
+            "isActive": false,
+            "type": "Snow Imp",
+            "monsterInstances": [
+                {
+                    "health": 10,
+                    "maxHealth": 10,
+                    "level": 5,
+                    "standeeNr": 2,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Snow Imp",
+                    "gfx": "Snow Imp",
+                    "roundSummoned": -1,
+                    "type": 1,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                },
+                {
+                    "health": 10,
+                    "maxHealth": 10,
+                    "level": 5,
+                    "standeeNr": 3,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Snow Imp",
+                    "gfx": "Snow Imp",
+                    "roundSummoned": -1,
+                    "type": 1,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                },
+                {
+                    "health": 5,
+                    "maxHealth": 5,
+                    "level": 5,
+                    "standeeNr": 1,
+                    "move": 0,
+                    "attack": 0,
+                    "range": 0,
+                    "name": "Snow Imp",
+                    "gfx": "Snow Imp",
+                    "roundSummoned": -1,
+                    "type": 0,
+                    "chill": 0,
+                    "conditions": [],
+                    "conditionsAddedThisTurn": [],
+                    "conditionsAddedPreviousTurn": []
+                }
+            ],
+            "isAlly": false,
+            "level": 5
+        }
+    ],
+    "currentAbilityDecks": [
+        {
+            "name": "Guard (FH)",
+            "drawPile": [
+                {
+                    "nr": 747,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 749,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 746,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 751,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 753,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 752,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 748,
+                    "deck": "Guard (FH)"
+                },
+                {
+                    "nr": 750,
+                    "deck": "Guard (FH)"
+                }
+            ],
+            "discardPile": [],
+            "lastRoundDrawn": 0
+        },
+        {
+            "name": "Algox Snowspeaker",
+            "drawPile": [
+                {
+                    "nr": 738,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 745,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 739,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 740,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 744,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 741,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 742,
+                    "deck": "Algox Snowspeaker"
+                },
+                {
+                    "nr": 743,
+                    "deck": "Algox Snowspeaker"
+                }
+            ],
+            "discardPile": [],
+            "lastRoundDrawn": 0
+        },
+        {
+            "name": "Imp (FH)",
+            "drawPile": [
+                {
+                    "nr": 830,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 833,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 826,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 831,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 827,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 832,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 829,
+                    "deck": "Imp (FH)"
+                },
+                {
+                    "nr": 828,
+                    "deck": "Imp (FH)"
+                }
+            ],
+            "discardPile": [],
+            "lastRoundDrawn": 0
+        }
+    ],
+    "modifierDeck": {
+        "blesses": 0,
+        "curses": 0,
+        "enfeebles": 0,
+        "addedMinusOnes": 0,
+        "badOmen": 0,
+        "drawPile": [
+            {
+                "gfx": "plus0"
+            },
+            {
+                "gfx": "plus1"
+            },
+            {
+                "gfx": "plus1"
+            },
+            {
+                "gfx": "nullAttack"
+            },
+            {
+                "gfx": "minus2"
+            },
+            {
+                "gfx": "plus1"
+            },
+            {
+                "gfx": "plus1"
+            },
+            {
+                "gfx": "plus0"
+            },
+            {
+                "gfx": "minus1"
+            },
+            {
+                "gfx": "minus1"
+            },
+            {
+                "gfx": "plus2"
+            },
+            {
+                "gfx": "plus0"
+            },
+            {
+                "gfx": "plus0"
+            },
+            {
+                "gfx": "doubleAttack"
+            },
+            {
+                "gfx": "plus1"
+            },
+            {
+                "gfx": "plus0"
+            },
+            {
+                "gfx": "minus1"
+            },
+            {
+                "gfx": "minus1"
+            },
+            {
+                "gfx": "minus1"
+            },
+            {
+                "gfx": "plus0"
+            }
+        ],
+        "discardPile": []
+    },
+    "modifierDeckAllies": {
+        "blesses": 0,
+        "curses": 0,
+        "enfeebles": 0,
+        "addedMinusOnes": 0,
+        "badOmen": 0,
+        "drawPile": [
+            {
+                "gfx": "plus1-allies"
+            },
+            {
+                "gfx": "plus1-allies"
+            },
+            {
+                "gfx": "plus2-allies"
+            },
+            {
+                "gfx": "minus1-allies"
+            },
+            {
+                "gfx": "plus0-allies"
+            },
+            {
+                "gfx": "doubleAttack-allies"
+            },
+            {
+                "gfx": "plus0-allies"
+            },
+            {
+                "gfx": "plus0-allies"
+            },
+            {
+                "gfx": "plus1-allies"
+            },
+            {
+                "gfx": "minus1-allies"
+            },
+            {
+                "gfx": "plus1-allies"
+            },
+            {
+                "gfx": "minus2-allies"
+            },
+            {
+                "gfx": "minus1-allies"
+            },
+            {
+                "gfx": "minus1-allies"
+            },
+            {
+                "gfx": "nullAttack-allies"
+            },
+            {
+                "gfx": "minus1-allies"
+            },
+            {
+                "gfx": "plus1-allies"
+            },
+            {
+                "gfx": "plus0-allies"
+            },
+            {
+                "gfx": "plus0-allies"
+            },
+            {
+                "gfx": "plus0-allies"
+            }
+        ],
+        "discardPile": []
+    },
+    "lootDeck": {
+        "drawPile": [
+            {
+                "gfx": "hide",
+                "owner": "",
+                "id": 31,
+                "enhanced": 0,
+                "baseValue": 2,
+                "lootType": 0
+            },
+            {
+                "gfx": "coin 1",
+                "owner": "",
+                "id": 10,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "lumber",
+                "owner": "",
+                "id": 28,
+                "enhanced": 0,
+                "baseValue": 1,
+                "lootType": 0
+            },
+            {
+                "gfx": "coin 2",
+                "owner": "",
+                "id": 14,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "metal",
+                "owner": "",
+                "id": 44,
+                "enhanced": 0,
+                "baseValue": 1,
+                "lootType": 0
+            },
+            {
+                "gfx": "hide",
+                "owner": "",
+                "id": 32,
+                "enhanced": 0,
+                "baseValue": 2,
+                "lootType": 0
+            },
+            {
+                "gfx": "metal",
+                "owner": "",
+                "id": 41,
+                "enhanced": 0,
+                "baseValue": 2,
+                "lootType": 0
+            },
+            {
+                "gfx": "arrowvine",
+                "owner": "",
+                "id": 46,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 0
+            },
+            {
+                "gfx": "coin 1",
+                "owner": "",
+                "id": 8,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "rockroot",
+                "owner": "",
+                "id": 56,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 0
+            },
+            {
+                "gfx": "lumber",
+                "owner": "",
+                "id": 21,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 0
+            },
+            {
+                "gfx": "metal",
+                "owner": "",
+                "id": 38,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 0
+            },
+            {
+                "gfx": "coin 1",
+                "owner": "",
+                "id": 5,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "coin 1",
+                "owner": "",
+                "id": 1,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "coin 1",
+                "owner": "",
+                "id": 9,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "coin 2",
+                "owner": "",
+                "id": 13,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            },
+            {
+                "gfx": "snowthistle",
+                "owner": "",
+                "id": 54,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 0
+            },
+            {
+                "gfx": "lumber",
+                "owner": "",
+                "id": 23,
+                "enhanced": 0,
+                "baseValue": 2,
+                "lootType": 0
+            },
+            {
+                "gfx": "hide",
+                "owner": "",
+                "id": 33,
+                "enhanced": 0,
+                "baseValue": 2,
+                "lootType": 0
+            },
+            {
+                "gfx": "coin 3",
+                "owner": "",
+                "id": 20,
+                "enhanced": 0,
+                "baseValue": 0,
+                "lootType": 1
+            }
+        ],
+        "discardPile": [],
+        "addedCards": [
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0,
+            0
+        ],
+        "enhancements": {},
+        "1418": false,
+        "1419": false
+    },
+    "unlockedClasses": [
+        "Pyroclast",
+        "Crashing Tide",
+        "Trapper",
+        "H.I.V.E."
+    ],
+    "showAllyDeck": false,
+    "elementState": {
+        "4": 2,
+        "2": 2,
+        "5": 2,
+        "1": 2,
+        "3": 2,
+        "0": 2
+    }
+}
