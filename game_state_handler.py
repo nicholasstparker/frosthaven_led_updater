@@ -85,9 +85,9 @@ class GameState:
             state = item.get("characterState", None)
             if state:
                 initiative = state.get("initiative", None)
-            if initiative is not None:
-                character = item["id"]
-                players.get_player(character).initiative = initiative
+            if initiative is not None and item["id"] in players:  # item["id"] is the player here.
+                player = item["id"]
+                players.get_player(player).initiative = initiative
 
     @staticmethod
     def set_element_state(json, elements: Elements) -> Elements:
