@@ -97,6 +97,7 @@ class Client:
                 try:
                     game_state = json.loads(json_str)
                     self.game_state_handler.handle(game_state)
+                    logger.info(f'Received game state.')
                 except json.JSONDecodeError as e:
                     logger.error(f'Error decoding JSON: {e}')
 
