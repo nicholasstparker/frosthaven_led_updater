@@ -5,6 +5,68 @@ from typing import Dict, Any, List
 from elements import Elements
 
 
+class GameStateHandler:
+    def __init__(self, settings_file_path: str = "settings.cfg"):
+        self.led = LEDController(board.D18, 100)
+        self.players, self.dummy_players, self.elements = parse_config(settings_file_path, self.led)
+        self.round_state_stack = Stack(0)
+        self.prev_round_state = None
+        self.led.start_up_sequence()
+
+    def handle(self, json: Dict[str, Any]):
+        game_state = GameState(json, self.elements)
+        self.prev_round_state = self.round_state_stack.peek()
+        self.round_state_stack.push(game_state.round_state)
+
+        match game_state.round_state:
+            case "ROUND_PHASE":
+                self.handle_round_phase(game_state)
+            case "CARD_SELECTION":
+                self.handle_card_selection_phase(game_state)
+
+    def handle_card_selection_phase(self, game_state):
+        bulk_update = True  # True means do not animate. False means animate. Goal is to animate
+        # only when switching round states.
+        if self.prev_round_state == "ROUND_PHASE":
+            self.led.color_wipe()
+            bulk_update = False
+        game_state.set_initiatives(self.players)
+        for player, player_state in self.players:
+            match player_state.initiative:
+                case 0:
+                    player_state.set_player_color(Color.RED)
+                case _:
+                    player_state.set_player_color(Color.GREEN)
+        for dummy_player, dummy_player_state in self.dummy_players:
+            dummy_player_state.set_player_color(Color.WHITE)
+        self.elements.set_all_element_colors()
+        self.led.update_led_state_to_future(bulk_update)
+
+    def handle_round_phase(self, game_state):
+        bulk_update = True  # True means do not animate. False means animate. Goal is to animate
+        # only when switching round states.
+        player = game_state.get_active_player()
+        if self.prev_round_state == "CARD_SELECTION":
+            self.led.color_wipe()
+            bulk_update = False
+
+        if player in self.players:
+            for player_, player_state_ in self.players:
+                if player_ != player:
+                    player_state_.set_player_color(Color.WHITE)
+            self.players.get_player(player).set_player_color(Color.GREEN)
+            for dummy_player, dummy_player_state in self.dummy_players:
+                dummy_player_state.set_player_color(Color.WHITE)
+
+        else:
+            for player, player_state in self.players:
+                player_state.set_player_color(Color.WHITE)
+            for dummy_player, dummy_player_state in self.dummy_players:
+                dummy_player_state.set_player_color(Color.RED)
+        self.elements.set_all_element_colors()
+        self.led.update_led_state_to_future(bulk_update)
+
+
 class GameState:
     def __init__(self, json, elements):
         self.round_state: str = "CARD_SELECTION" if json["roundState"] == 0 else "ROUND_PHASE"
@@ -80,68 +142,6 @@ class GameState:
                         case 2:
                             elements.get_element("Dark").state = "DEAD"
         return elements
-
-
-class GameStateHandler:
-    def __init__(self, settings_file_path: str = "settings.cfg"):
-        self.led = LEDController(board.D18, 100)
-        self.players, self.dummy_players, self.elements = parse_config(settings_file_path, self.led)
-        self.round_state_stack = Stack(0)
-        self.prev_round_state = None
-        self.led.start_up_sequence()
-
-    def handle(self, json: Dict[str, Any]):
-        game_state = GameState(json, self.elements)
-        self.prev_round_state = self.round_state_stack.peek()
-        self.round_state_stack.push(game_state.round_state)
-
-        match game_state.round_state:
-            case "ROUND_PHASE":
-                self.handle_round_phase(game_state)
-            case "CARD_SELECTION":
-                self.handle_card_selection_phase(game_state)
-
-    def handle_card_selection_phase(self, game_state):
-        bulk_update = True  # True means do not animate. False means animate. Goal is to animate
-        # only when switching round states.
-        if self.prev_round_state == "ROUND_PHASE":
-            self.led.color_wipe()
-            bulk_update = False
-        game_state.set_initiatives(self.players)
-        for player, player_state in self.players:
-            match player_state.initiative:
-                case 0:
-                    player_state.set_player_color(Color.RED)
-                case _:
-                    player_state.set_player_color(Color.GREEN)
-        for dummy_player, dummy_player_state in self.dummy_players:
-            dummy_player_state.set_player_color(Color.WHITE)
-        self.elements.set_all_element_colors()
-        self.led.update_led_state_to_future(bulk_update)
-
-    def handle_round_phase(self, game_state):
-        bulk_update = True  # True means do not animate. False means animate. Goal is to animate
-        # only when switching round states.
-        player = game_state.get_active_player()
-        if self.prev_round_state == "CARD_SELECTION":
-            self.led.color_wipe()
-            bulk_update = False
-
-        if player in self.players:
-            for player_, player_state_ in self.players:
-                if player_ != player:
-                    player_state_.set_player_color(Color.WHITE)
-            self.players.get_player(player).set_player_color(Color.GREEN)
-            for dummy_player, dummy_player_state in self.dummy_players:
-                dummy_player_state.set_player_color(Color.WHITE)
-
-        else:
-            for player, player_state in self.players:
-                player_state.set_player_color(Color.WHITE)
-            for dummy_player, dummy_player_state in self.dummy_players:
-                dummy_player_state.set_player_color(Color.RED)
-        self.elements.set_all_element_colors()
-        self.led.update_led_state_to_future(bulk_update)
 
 
 class Node:
