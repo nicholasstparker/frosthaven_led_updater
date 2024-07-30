@@ -1,11 +1,9 @@
-FROM balenalib/rpi-raspbian
-
-RUN apt-get update && apt-get install -y python3 python3-pip python3-rpi.gpio
+FROM python:3.11.9-slim-bookworm
 
 WORKDIR /app
 
 COPY . /app/
 
-RUN pip3 install -r requirements.txt
+RUN pip install -r requirements.txt
 
-CMD ["python3", "main.py"]
+CMD ["python", "test_led_docker.py"]
