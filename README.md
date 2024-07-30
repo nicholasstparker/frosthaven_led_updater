@@ -2,7 +2,7 @@
 
 ![Lights in Action](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/table_working.gif)
 
-**WIP**
+LATEST UPDATE: Dockerized!
 
 [Video (same as above but longer and full res)](https://streamable.com/2la4t8)
 
@@ -30,7 +30,7 @@ Pictures:
 ![Electronics Box Setup](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/electronics_setup.jpg)
 ![Logic Level Converter Setup](https://github.com/nicholas-st-parker/frosthaven_led_updater/blob/4ba176e09931a0256b2d651c34908fef847aafd1/media/line_level_setup.jpg)
 
-## Guide
+## Guide(Non-Dockerized)
 - Follow [this guide](https://learn.adafruit.com/neopixels-on-raspberry-pi/overview) to get the LED strip working on the Pi.
 > [!NOTE]
 > My setup needed a logic level converter to convert the 3.3v data signal to 5v for the led 
@@ -38,10 +38,19 @@ Pictures:
 > the signal wires and ground wires. There should be 6 wires total hooked up to the line level 
 > converter. See picture above for reference.
 - Clone this repository on Pi
+- Install the required packages with `pip install -r requirements.txt`
 - Edit "settings.cfg" file in the project directory according to your settings. [See header below for details](https://github.com/nicholas-st-parker/frosthaven_led_updater/tree/master?tab=readme-ov-file#example-settingscfg)
 - Start a FroshavenAssistant server.
 - Change ip address and port in main.py to match the FrosthavenAssistant server IP and port.
 - Run main.py
+
+## Guide(Dockerized)
+- Follow the above guide to make sure everything works first. Or don't. I'm not your dad.
+- Clone this repository on Pi
+- Edit "settings.cfg" file in the project directory according to your settings.
+- Start a FroshavenAssistant server.
+- Edit the docker-compose.yml environment variables to match the FrosthavenAssistant server IP and port.
+- Run `docker-compose up -d` in the project directory.
 
 ## Example settings.cfg
 ```
