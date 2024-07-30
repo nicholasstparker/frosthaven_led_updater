@@ -2,6 +2,7 @@ import json
 import socket
 import threading
 import time
+from loguru import logger
 from game_state_handler import GameStateHandler
 
 
@@ -21,14 +22,14 @@ class Client:
             try:
                 self.sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 self.sock.connect((self.server_address, self.server_port))
-                print(f'Connected to {self.server_address}:{self.server_port}')
+                logger.info(f'Connected to {self.server_address}:{self.server_port}')
                 self.listen()
                 self.send("init version:1.0")
                 self.send_ping()
                 break
             except Exception as e:
-                print(f'Error connecting to the server: {e}. Retrying in {self.reconnect_interval} '
-                      f'seconds...')
+                logger.error(f'Error connecting to the server: {e}. Retrying in {self.reconnect_interval} '
+                             f'seconds...')
                 time.sleep(self.reconnect_interval)
 
     # def request_initial_state(self):
@@ -40,7 +41,7 @@ class Client:
             try:
                 self.sock.sendall(message.encode('utf-8'))
             except Exception as e:
-                print(f'Error sending message: {e}')
+                logger.error(f'Error sending message: {e}')
 
     def send_ping(self):
         if self.sock and self._server_responsive:
@@ -56,12 +57,12 @@ class Client:
                     if data:
                         self.on_receive_data(data)
                     else:
-                        print("Server closed connection.")
+                        logger.warning("Server closed connection.")
                         self._server_responsive = False
                         self.reconnect()
                         break
                 except Exception as e:
-                    print(f'Error receiving data: {e}')
+                    logger.error(f'Error receiving data: {e}')
                     self._server_responsive = False
                     self.reconnect()
                     break
@@ -97,14 +98,14 @@ class Client:
                     game_state = json.loads(json_str)
                     self.game_state_handler.handle(game_state)
                 except json.JSONDecodeError as e:
-                    print(f'Error decoding JSON: {e}')
+                    logger.error(f'Error decoding JSON: {e}')
 
     def reconnect(self):
-        print(f'Attempting to reconnect in {self.reconnect_interval} seconds...')
+        logger.warning(f'Attempting to reconnect in {self.reconnect_interval} seconds...')
         time.sleep(self.reconnect_interval)
         self.connect()
 
     def disconnect(self):
         if self.sock:
             self.sock.close()
-            print("Disconnected from server")
+            logger.info("Disconnected from server")
