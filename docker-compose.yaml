@@ -1,0 +1,11 @@
+services:
+  led-controller:
+    build: .
+    container_name: led-controller
+    devices:
+      - "/dev/mem:/dev/mem"
+      - "/dev/gpiomem:/dev/gpiomem"
+      - "/dev/vcsm:/dev/vcsm"
+      - "/dev/vchiq:/dev/vchiq"
+    privileged: true
+    restart: unless-stopped

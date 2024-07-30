@@ -1,4 +1,5 @@
 import neopixel
+import board
 # from mock_modules import MockNeoPixel as neopixel
 from typing import Tuple
 
@@ -47,7 +48,7 @@ class LEDController:
         color_wipe(color): Fills the LED strip with a single color, one LED at a time.
     """
 
-    def __init__(self, pin, num_pixels: int = 100):
+    def __init__(self, pin=board.D18, num_pixels: int = 100):
         self.num_pixels = num_pixels
         self.pixels = neopixel.NeoPixel(pin, num_pixels,
                                         brightness=1.0,
