@@ -7,5 +7,8 @@ services:
       - "/dev/gpiomem:/dev/gpiomem"
       - "/dev/vcsm:/dev/vcsm"
       - "/dev/vchiq:/dev/vchiq"
+    environment:
+      - SERVER_ADDRESS=192.168.0.196
+      - SERVER_PORT=4567
     privileged: true
     restart: unless-stopped
