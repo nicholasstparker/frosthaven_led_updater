@@ -3,7 +3,7 @@ import socket
 import threading
 import time
 from loguru import logger
-from game_state_handler import GameStateHandler
+# from game_state_handler import GameStateHandler
 
 
 class Client:
@@ -15,7 +15,7 @@ class Client:
         self.buffer = ""
         self.message_callback = message_callback
         self.reconnect_interval = 5
-        self.game_state_handler = GameStateHandler()
+        # self.game_state_handler = GameStateHandler()
 
     def connect(self):
         while True:
@@ -96,7 +96,7 @@ class Client:
                 json_str = message[json_start:json_end].strip()
                 try:
                     game_state = json.loads(json_str)
-                    self.game_state_handler.handle(game_state)
+                    # self.game_state_handler.handle(game_state)
                     logger.info(f'Received game state.')
                 except json.JSONDecodeError as e:
                     logger.error(f'Error decoding JSON: {e}')
