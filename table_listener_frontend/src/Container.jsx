@@ -7,12 +7,7 @@ function Container() {
 
     return (
         <div className="container text-center mt-3">
-            <DatePickerInput
-                label="Pick date"
-                placeholder="Pick date"
-                value={value}
-                onChange={setValue}
-            />
+            <TabbedNavs />
         </div>
     )
 }

@@ -13,7 +13,6 @@ function TabbedNavs() {
   return (
     <div className="container text-center">
       <div className="row">
-        <div className="col-4"></div>
         <div className="col-4">
           <div className="card text-light shadow-lg rounded">
             <ul className="nav nav-tabs" id="myTab" role="tablist">
@@ -51,7 +50,6 @@ function TabbedNavs() {
             </div>
           </div>
         </div>
-        <div className="col-4"></div>
       </div>
     </div>
   );
