@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import path from 'path';
+import cleanPlugin from "vite-plugin-clean";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -18,5 +19,9 @@ export default defineConfig({
     port: 8080,
     hot: true
   },
-  plugins: [react()],
+  plugins: [react(),
+    cleanPlugin({
+      targets: ['../dist'],
+    })
+  ]
 });
