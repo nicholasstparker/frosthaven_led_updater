@@ -1,5 +1,5 @@
 import {Container} from "@mantine/core";
-import CustomTabs from "./CustomTabs";
+// import CustomTabs from "./CustomTabs";
 
 export default function App() {
     const containerProps = {
@@ -7,7 +7,7 @@ export default function App() {
     }
     return (
         <Container {...containerProps}>
-            <CustomTabs />
+            {/*<CustomTabs />*/}
         </Container>
     );
 }
